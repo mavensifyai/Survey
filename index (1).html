@@ -1,22 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Work Survey Form</title>
-</head>
-<body>
-<script>
 (function() {
     const formTitle = 'WORK SURVEY FORM';
     const formDescription = 'This Survey is to capture your day-to-day pain points at your work. Your responses will be kept strictly confidential and will be used for research purposes only and will not be disclosed outside of this study.';
     const submitButtonText = 'Submit';
     const closeButtonText = 'Close';
     const thankYouMessage = 'Thank you for submitting the form! Maraming salamat';
-    const showAfterSeconds = 0;
-    const showAfterViews = 0;
-    const showAgainAfterDays = 0;
-    const surveyId = 'suhn3d';
+    const showAfterSeconds = 0; // Set to desired seconds
+    const showAfterViews = 0; // Set to desired views
+    const showAgainAfterDays = 0; // Set to desired days
+    const surveyId = 'suhn3d'; // Set your survey ID here
 
     const storagePrefix = `${surveyId}:`;
 
@@ -28,14 +19,19 @@
 
     const survey = [
         {type: "TEXT", question: "Enter your Name and Job Title", required: true, options: ""},
-        {type: "CHECKBOXES", question: "Which areas of your work involve the most repetitive tasks?", required: false, options: "Data entry / record keeping, Scheduling & calendar management, Inventory tracking, Responding to customer inquiries, Processing orders & payments, Report preparation, Compliance / documentation, Others"},
-        {type: "TEXTAREA", question: "(Others) Give as much details as possible:", required: false, options: ""},
-        {type: "TEXTAREA", question: "Which operational processes in your business do you feel take up unnecessary time due to repetition? (Describe as much detail as possible)", required: false, options: ""},
-        {type: "TEXTAREA", question: "What tools or methods have you tried, and how effective were they?", required: false, options: ""},
-        {type: "CHECKBOXES", question: "If AI could help reduce repetitive work, which business areas would you prioritize?", required: false, options: "Customer service, Accounting / finance, Human resources & hiring, Inventory & supply chain, Sales & marketing"},
-        {type: "TEXTAREA", question: "What is one thing you wish were implemented in your day-to-day workflow/process that will help empower you?(Give as much details as possible)", required: false, options: ""}
+{type: "CHECKBOXES", question: "Which areas of your work involve the most repetitive tasks?", required: false, options: "Data entry / record keeping, Scheduling & calendar management, Inventory tracking, Responding to customer inquiries, Processing orders & payments, Report preparation, Compliance / documentation, Others"},
+{type: "TEXTAREA", question: "(Others) Give as much details as possible:", required: false, options: ""},
+{type: "TEXTAREA", question: "Which operational processes in your business do you feel take up unnecessary time due to repetition? (Describe as much detail as possible)
+", required: false, options: ""},
+{type: "TEXTAREA", question: "What tools or methods have you tried, and how effective were they?
+", required: false, options: ""},
+{type: "CHECKBOXES", question: "If AI could help reduce repetitive work, which business areas would you prioritize?
+", required: false, options: "Customer service, Accounting / finance, Human resources & hiring, Inventory & supply chain, Sales & marketing"},
+{type: "TEXTAREA", question: "What is one thing you wish were implemented in your day-to-day workflow/process that will help empower you?(Give as much details as possible)", required: false, options: ""},
+
     ];
 
+    // Survey ID prefix is used to avoid conflicts with other surveys
     const cssTemplate = `
         <style>
         #suhn3d_survey__modalContainer {
@@ -203,7 +199,7 @@
         fetch('https://script.google.com/macros/s/AKfycbwp-VIvZihUP9Z0uTUA9-MwpecUj3V_qgKtC4sBQrtzDxSOrWywv3IwlaURL_0kuXsx/exec', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'text/plain;charset=utf-8',
             },
             body: JSON.stringify(formData),
         });
@@ -231,6 +227,7 @@
         return true;
     }
 
+    // Automatically show modal after specified seconds or views
     if (shouldShowModal()) {
         if (showAfterSeconds > 0) {
             setTimeout(openModal, showAfterSeconds * 1000);
@@ -239,6 +236,3 @@
         }
     }
 })();
-</script>
-</body>
-</html>
