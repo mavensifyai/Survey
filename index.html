@@ -1,163 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Operation Pain Points Survey</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work Survey Form</title>
 </head>
 <body>
-    <h2 style="text-align:center; font-family:Arial, sans-serif;">Business Operation Pain Points Survey</h2>
-    <p style="text-align:center; font-family:Arial, sans-serif;">
-        Please fill out the survey below. Thank you!
-    </p>
+  <h2 style="text-align:center;">Work Survey Form</h2>
+  <p style="text-align:center;">Click below to open the survey form</p>
+  <button onclick="openSurvey()" style="display:block;margin:20px auto;padding:10px 20px;cursor:pointer;">Open Survey</button>
 
-    <!-- Your FreeSurvey.app script starts here -->
-    <script>
-    (function() {
-        const formTitle = 'Business Operation Pain Points';
-        const formDescription = 'This survey is about asking business owners, employees about the repetitive day to day tasks you are experiencing that can be ';
-        const submitButtonText = 'Submit';
-        const closeButtonText = 'Close';
-        const thankYouMessage = 'Thank you for submitting the form! Maraming Salamat!';
-        const showAfterSeconds = 0; 
-        const showAfterViews = 0;
-        const showAgainAfterDays = 0;
-        const surveyId = 'su1vtm';
+  <script>
+    function openSurvey() {
+      (function() {
+          const formTitle = 'WORK SURVEY FORM';
+          const formDescription = 'This Survey is to capture your day-to-day pain points at your work. Your responses will be kept strictly confidential and will be used for research purposes only and will not be disclosed outside of this study.';
+          const submitButtonText = 'Submit';
+          const closeButtonText = 'Close';
+          const thankYouMessage = 'Thank you for submitting the form! Maraming salamat';
+          const showAfterSeconds = 0;
+          const showAfterViews = 0;
+          const showAgainAfterDays = 0;
+          const surveyId = 'suhn3d';
 
-        const storagePrefix = `${surveyId}:`;
+          const storagePrefix = `${surveyId}:`;
 
-        let surveyViewedTimes = window.localStorage.getItem(`${storagePrefix}survey__viewedTimes`) ? parseInt(window.localStorage.getItem(`${storagePrefix}survey__viewedTimes`)) : 0;
-        window.localStorage.setItem(`${storagePrefix}survey__viewedTimes`, ++surveyViewedTimes);
+          let surveyViewedTimes = window.localStorage.getItem(`${storagePrefix}survey__viewedTimes`) ? parseInt(window.localStorage.getItem(`${storagePrefix}survey__viewedTimes`)) : 0;
+          window.localStorage.setItem(`${storagePrefix}survey__viewedTimes`, ++surveyViewedTimes);
 
-        const surveySent = window.localStorage.getItem(`${storagePrefix}survey__sent`);
-        const surveyLastClosedAt = window.localStorage.getItem(`${storagePrefix}survey_lastClosedAt`);
+          const surveySent = window.localStorage.getItem(`${storagePrefix}survey__sent`);
+          const surveyLastClosedAt = window.localStorage.getItem(`${storagePrefix}survey_lastClosedAt`);
 
-        const survey = [
-            {type: "CHECKBOXES", question: "Which areas of your work involve the most repetitive tasks?", required: false, options: "Data entry / record keeping, Scheduling & calendar management, Inventory tracking, Responding to customer inquiries, Processing orders & payments, Report preparation, Compliance / documentation, Others"},
-            {type: "TEXTAREA", question: "Which operational processes in your business do you feel take up unnecessary time due to repetition? (Describe as much detail as possible)", required: false, options: ""},
-            {type: "TEXTAREA", question: "What tools or methods have you tried, and how effective were they?", required: false, options: ""},
-            {type: "CHECKBOXES", question: "If AI could help reduce repetitive work, which business areas would you prioritize?", required: false, options: "Customer service, Accounting / finance, Human resources & hiring, Inventory & supply chain, Sales & marketing"},
-        ];
+          const survey = [
+              {type: "TEXT", question: "Enter your Name and Job Title", required: true, options: ""},
+              {type: "CHECKBOXES", question: "Which areas of your work involve the most repetitive tasks?", required: false, options: "Data entry / record keeping, Scheduling & calendar management, Inventory tracking, Responding to customer inquiries, Processing orders & payments, Report preparation, Compliance / documentation, Others"},
+              {type: "TEXTAREA", question: "(Others) Give as much details as possible:", required: false, options: ""},
+              {type: "TEXTAREA", question: "Which operational processes in your business do you feel take up unnecessary time due to repetition? (Describe as much detail as possible)", required: false, options: ""},
+              {type: "TEXTAREA", question: "What tools or methods have you tried, and how effective were they?", required: false, options: ""},
+              {type: "CHECKBOXES", question: "If AI could help reduce repetitive work, which business areas would you prioritize?", required: false, options: "Customer service, Accounting / finance, Human resources & hiring, Inventory & supply chain, Sales & marketing"},
+              {type: "TEXTAREA", question: "What is one thing you wish were implemented in your day-to-day workflow/process that will help empower you? (Give as much details as possible)", required: false, options: ""},
+          ];
 
-        const cssTemplate = `
-            <style>
-            #su1vtm_survey__modalContainer {
-                font: inherit;
-                position: relative;
-                z-index: 999999999;
-                margin: 20px auto;
-                width: 90%;
-                max-width: 700px;
-                background: #fff;
-                border-radius: 8px;
-                border: 1px solid #ccc;
-                padding: 20px;
-                box-shadow: 0 0 10px rgba(0,0,0,0.2);
-            }
-            #su1vtm_survey__formTitle {
-                font-size: 1.5rem;
-                font-weight: bold;
-                color: #1e293b;
-                margin-bottom: 10px;
-            }
-            #su1vtm_survey__formDescription {
-                color: #64748b;
-                margin-bottom: 20px;
-            }
-            .su1vtm_survey__button {
-                padding: 10px 15px;
-                background-color: #e2e8f0;
-                border: 1px solid #cbd5e1;
-                border-radius: 4px;
-                cursor: pointer;
-                margin-right: 10px;
-            }
-            .su1vtm_survey__inputLabel {
-                display: block;
-                margin-bottom: 8px;
-                font-weight: bold;
-            }
-            .su1vtm_survey__choicesContainer {
-                margin-bottom: 15px;
-            }
-            .su1vtm_survey__textInput {
-                width: 100%;
-                padding: 8px;
-                margin-bottom: 15px;
-                border: 1px solid #cbd5e1;
-                border-radius: 4px;
-                box-sizing: border-box;
-            }
-            </style>
-        `;
+          const cssTemplate = `
+              <style>
+              #suhn3d_survey__modalContainer {
+                  font: inherit;
+                  display: none;
+                  position: fixed;
+                  z-index: 999999999;
+                  left: 0;
+                  top: 0;
+                  width: 100%;
+                  height: 100%;
+                  overflow: auto;
+                  background-color: rgba(2,6,23,0.4);
+              }
+              #suhn3d_survey__formContainer {
+                  background-color: #fff;
+                  border-radius: 0.5rem;
+                  margin: 10% auto;
+                  padding: 1.25rem;
+                  border: 0.063rem solid #94a3b8;
+                  width: 80%;
+                  max-width: 32rem;
+              }
+              #suhn3d_survey__formHeader {
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+              }
+              #suhn3d_survey__formTitle {
+                  margin: 0;
+                  font-size: 1.5rem;
+                  font-weight: semi-bold;
+                  color: #1e293b;
+              }
+              #suhn3d_survey__formDescription {
+                  margin-top: 0.5rem;
+                  margin-bottom: 1.25rem;
+                  color: #64748b;
+              }
+              #suhn3d_survey__closeButton {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  color: #94a3b8;
+                  font-size: 1.75rem;
+                  font-weight: bold;
+                  background: none;
+                  border: none;
+                  cursor: pointer;
+              }
+              #suhn3d_survey__buttonContainer {
+                  display: flex;
+                  justify-content: space-between;
+                  margin-top: 2.25rem;
+              }
+              .suhn3d_survey__button {
+                  padding: 0.5rem 1rem;
+                  background-color: #e2e8f0;
+                  border: 0.01rem solid #cbd5e1;
+                  border-radius: 0.25rem;
+                  cursor: pointer;
+              }
+              .suhn3d_survey__inputLabel {
+                  display: block;
+                  margin-bottom: 0.625rem;
+              }
+              .suhn3d_survey__choicesContainer {
+                  margin-bottom: 1.5rem;
+              }
+              .suhn3d_survey__textInput {
+                  width: 100%;
+                  padding: 0.5rem;
+                  margin-top: 0.375rem;
+                  margin-bottom: 1.5rem;
+                  display: block;
+                  border: 0.01rem solid #cbd5e1;
+                  border-radius: 0.25rem;
+                  box-sizing: border-box;
+              }
+              </style>
+          `;
 
-        const htmlTemplate = `
-            <div id="su1vtm_survey__modalContainer">
-                <div id="su1vtm_survey__formContainer">
-                    <h1 id="su1vtm_survey__formTitle">{FORM_TITLE}</h1>
-                    <p id="su1vtm_survey__formDescription">{FORM_DESCRIPTION}</p>
-                    <form id="su1vtm_survey__form">
-                        {SURVEY}
-                        <div>
-                            <button id="su1vtm_survey__submitButton" type="submit" class="su1vtm_survey__button">${submitButtonText}</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        `;
+          const htmlTemplate = `
+              <div id="suhn3d_survey__modalContainer">
+                  <div id="suhn3d_survey__formContainer">
+                      <div id="suhn3d_survey__formHeader">
+                          <h1 id="suhn3d_survey__formTitle">{FORM_TITLE}</h1>
+                          <button id="suhn3d_survey__closeButton"><span>&times;</span></button>
+                      </div>
+                      <div id="suhn3d_survey__formBody">
+                          <p id="suhn3d_survey__formDescription">{FORM_DESCRIPTION}</p>
+                          <form id="suhn3d_survey__form">
+                              {SURVEY}
+                              <div id="suhn3d_survey__buttonContainer">
+                              <button id="suhn3d_survey__closeModalButton" type="button" class="suhn3d_survey__button">${closeButtonText}</button>
+                              <button id="suhn3d_survey__submitButton" type="submit" class="suhn3d_survey__button">${submitButtonText}</button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          `;
 
-        function generateSurveyHTML(survey) {
-            return survey.map((q, index) => {
-                const requiredAttr = q.required ? 'required' : '';
-                if (q.type === 'TEXTAREA') {
-                    return `<label class="su1vtm_survey__inputLabel">${q.question}<textarea class="su1vtm_survey__textInput" name="question${index}" ${requiredAttr}></textarea></label>`;
-                } else if (q.type === 'CHECKBOXES') {
-                    return `<div class="su1vtm_survey__choicesContainer"><label class="su1vtm_survey__inputLabel">${q.question}</label>` + q.options.split(',').map(option => `<div><input type="checkbox" name="question${index}" value="${option.trim()}"><span>${option.trim()}</span></div>`).join('') + '</div>';
-                }
-            }).join('');
-        }
+          function generateSurveyHTML(survey) {
+              return survey.map((q, index) => {
+                  const requiredAttr = q.required ? 'required' : '';
+                  if (q.type === 'TEXT') {
+                      return `<label class="suhn3d_survey__inputLabel">${q.question}<input class="suhn3d_survey__textInput" type="text" name="question${index}" ${requiredAttr} autocomplete="off"></label>`;
+                  } else if (q.type === 'TEXTAREA') {
+                      return `<label class="suhn3d_survey__inputLabel">${q.question}<textarea class="suhn3d_survey__textInput" name="question${index}" ${requiredAttr} autocomplete="off"></textarea></label>`;
+                  } else if (q.type === 'RADIO_BUTTONS') {
+                      return `<div class="suhn3d_survey__choicesContainer"><label class="suhn3d_survey__inputLabel">${q.question}</label>` + q.options.split(',').map(option => `<div><input type="radio" name="question${index}" value="${option.trim()}" class="suhn3d_survey__formRadio" ${requiredAttr} autocomplete="off"><span>${option.trim()}</span></div>`).join('') + '</div>';
+                  } else if (q.type === 'CHECKBOXES') {
+                      return `<div class="suhn3d_survey__choicesContainer"><label class="suhn3d_survey__inputLabel">${q.question}</label>` + q.options.split(',').map(option => `<div><input type="checkbox" name="question${index}" value="${option.trim()}" class="suhn3d_survey__formCheckbox" ${requiredAttr} autocomplete="off"><span>${option.trim()}</span></div>`).join('') + '</div>';
+                  }
+              }).join('');
+          }
 
-        function openModal() {
-            const modalHTML = htmlTemplate
-                .replace('{FORM_TITLE}', formTitle)
-                .replace('{FORM_DESCRIPTION}', formDescription)
-                .replace('{SURVEY}', generateSurveyHTML(survey));
+          function openModal() {
+              const modalHTML = htmlTemplate
+                  .replace('{FORM_TITLE}', formTitle)
+                  .replace('{FORM_DESCRIPTION}', formDescription)
+                  .replace('{SURVEY}', generateSurveyHTML(survey));
 
-            document.head.insertAdjacentHTML('beforeend', cssTemplate);
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
+              document.head.insertAdjacentHTML('beforeend', cssTemplate);
+              document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-            document.getElementById('su1vtm_survey__form').addEventListener('submit', handleSubmit);
-        }
+              document.getElementById('suhn3d_survey__closeButton').addEventListener('click', closeModal);
+              document.getElementById('suhn3d_survey__closeModalButton').addEventListener('click', closeModal);
+              document.getElementById('suhn3d_survey__form').addEventListener('submit', handleSubmit);
 
-        function handleSubmit(event) {
-            event.preventDefault();
-            const form = document.getElementById('su1vtm_survey__form');
-            const formData = {};
-            survey.forEach((q, index) => {
-                if (q.type === 'CHECKBOXES') {
-                    formData[`question${index}`] = Array.from(form.elements[`question${index}`])
-                        .filter(checkbox => checkbox.checked)
-                        .map(checkbox => checkbox.value)
-                        .join(', ');
-                } else {
-                    formData[`question${index}`] = form.elements[`question${index}`].value;
-                }
-            });
+              document.getElementById('suhn3d_survey__modalContainer').style.display = 'block';
+          }
 
-            document.getElementById('su1vtm_survey__formContainer').innerHTML = `<p>${thankYouMessage}</p>`;
+          function closeModal() {
+              const modalContainer = document.getElementById('suhn3d_survey__modalContainer');
+              if (modalContainer) {
+                  modalContainer.remove();
+              }
+              const now = new Date();
+              window.localStorage.setItem(`${storagePrefix}survey_lastClosedAt`, now.toISOString());
+          }
 
-            fetch('https://script.google.com/macros/s/AKfycbzvPVqOJn6kUWQyOLCZGAwXR_syR8zhxdp2vFobYGTrXDd_CcHdVsDB9MsrnHB-sdkW/exec', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'text/plain;charset=utf-8',
-                },
-                body: JSON.stringify(formData),
-            });
-        }
+          function handleSubmit(event) {
+              event.preventDefault();
+              const form = document.getElementById('suhn3d_survey__form');
+              if (!form.checkValidity()) {
+                  form.reportValidity();
+                  return;
+              }
+              const formData = {};
+              survey.forEach((q, index) => {
+                  if (q.type === 'CHECKBOXES') {
+                      formData[`question${index}`] = Array.from(form.elements[`question${index}`])
+                          .filter(checkbox => checkbox.checked)
+                          .map(checkbox => checkbox.value)
+                          .join(', ');
+                  } else {
+                      formData[`question${index}`] = form.elements[`question${index}`].value;
+                  }
+              });
 
-        openModal();
-    })();
-    </script>
-    <!-- Your FreeSurvey.app script ends here -->
+              showThankYouMessage();
+
+              fetch('https://script.google.com/macros/s/AKfycbwp-VIvZihUP9Z0uTUA9-MwpecUj3V_qgKtC4sBQrtzDxSOrWywv3IwlaURL_0kuXsx/exec', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'text/plain;charset=utf-8',
+                  },
+                  body: JSON.stringify(formData),
+              });
+
+              window.localStorage.setItem(`${storagePrefix}survey__sent`, 'true');
+          }
+
+          function showThankYouMessage() {
+              const modalBody = document.getElementById('suhn3d_survey__formBody');
+              modalBody.innerHTML = `<p>${thankYouMessage}</p>`;
+          }
+
+          function shouldShowModal() {
+              if (surveySent === 'true') return false;
+              if (showAgainAfterDays > 0) {
+                  const lastClosedAt = new Date(surveyLastClosedAt);
+                  const now = new Date();
+                  const daysSinceClosed = (now - lastClosedAt) / (1000 * 60 * 60 * 24);
+                  if (daysSinceClosed < showAgainAfterDays) return false;
+              }
+              if (surveyViewedTimes < showAfterViews) return false;
+              return true;
+          }
+
+          if (shouldShowModal()) {
+              if (showAfterSeconds > 0) {
+                  setTimeout(openModal, showAfterSeconds * 1000);
+              } else {
+                  openModal();
+              }
+          }
+      })();
+    }
+  </script>
 </body>
 </html>
